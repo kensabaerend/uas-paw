@@ -120,7 +120,7 @@
           email: email,
           nohp: nohp,
         };
-        fetch(`https://uas-paw-xi.vercel.app/${idToUpdate}`, {
+        fetch(`https://uas-paw-xi.vercel.app/etalase${idToUpdate}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -145,7 +145,7 @@
       const urlParams = new URLSearchParams(window.location.search);
       const idToUpdate = urlParams.get('id');
 
-      fetch(`https://uas-paw-xi.vercel.app/${idToUpdate}`)
+      fetch(`https://uas-paw-xi.vercel.app/etalase${idToUpdate}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
