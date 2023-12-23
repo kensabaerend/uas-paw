@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ase<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -101,7 +101,7 @@
     <!-- End #main -->
 
     <script>
-      fetch('https://uas-paw-xi.vercel.app/')
+      fetch('https://uas-paw-xi.vercel.app/etalase')
         .then((response) => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -139,7 +139,7 @@
               event.preventDefault();
               const idToDelete = event.target.dataset.id;
               // Call your delete API here
-              fetch(`http://localhost:8000/etalase/${idToDelete}`, {
+              fetch(`https://uas-paw-xi.vercel.app/etalase/${idToDelete}`, {
                 method: 'DELETE',
               })
                 .then((response) => {
