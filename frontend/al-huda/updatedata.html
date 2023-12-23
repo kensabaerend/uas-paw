@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Update Siswa</title>
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon" />
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet" />
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+
+    <style>
+      .text-center {
+        text-align: center;
+      }
+
+      button {
+        background-color: #4caf50; /* Warna latar belakang tombol */
+        color: white; /* Warna teks tombol */
+        padding: 10px 20px; /* Padding tombol */
+        font-size: 16px; /* Ukuran font tombol */
+        border: none; /* Hapus border tombol */
+        border-radius: 5px; /* Membuat sudut tombol melengkung */
+        cursor: pointer; /* Menunjukkan kursor dapat diklik */
+      }
+
+      button:hover {
+        background-color: #45a049; /* Warna latar belakang tombol saat dihover */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" data-aos="fade-up">
+      <div class="row mt-5">
+        <div class="col-lg-300 mt-300 mt-lg-0">
+          <form method="post" role="form" class="php-email-form" id="siswaForm">
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <p>Masukan Nama Siswa :</p>
+                <input type="text" name="nama_siswa" class="form-control" id="nama_siswa" placeholder="Masukan Nama Siswa" required />
+              </div>
+              <div class="col-md-6 form-group">
+                <p>Masukan Tanggal Lahir :</p>
+                <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir" placeholder="Masukan Tanggal Lahir" required />
+              </div>
+              <div class="form-group mt-3">
+                <p>Masukan Nomor Akte :</p>
+                <input type="text" name="noakte" class="form-control" id="noakte" placeholder="Masukan Nomor Akte" required />
+              </div>
+              <div class="form-group mt-3">
+                <p>Masukan Nama Orang Tua :</p>
+                <input type="text" name="nama_orangtua" class="form-control" id="nama_orangtua" placeholder="Masukan Nama Orang Tua" required />
+              </div>
+              <div class="form-group mt-3">
+                <p>Masukan Alamat :</p>
+                <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Masukan Alamat" required />
+              </div>
+              <div class="form-group mt-3">
+                <p>Masukan Email :</p>
+                <input type="text" class="form-control" name="email" id="email" placeholder="Masukan Email" required />
+              </div>
+              <div class="form-group mt-3">
+                <p>Masukan Nomor Telpon :</p>
+                <input type="text" class="form-control" name="nohp" id="nohp" placeholder="Masukan Nomor Telpon" required />
+              </div>
+            </div>
+            <div class="my-3">
+              <div class="loading">Loading</div>
+              <div class="error-message"></div>
+            </div>
+            <div class="text-center">
+              <button type="submit">Kirim Formulir</button>
+              <a href="datapendaftar.html" style="margin-left: 50px; color: #006400; text-decoration: underline"> Kembali Ke Daftar Peserta</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('siswaForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Menghentikan perilaku bawaan form (pengiriman HTTP POST)
+
+        // Mengambil nilai dari input
+        const nama_siswa = document.getElementById('nama_siswa').value;
+        const tanggal_lahir = document.getElementById('tanggal_lahir').value;
+        const noakte = document.getElementById('noakte').value;
+        const nama_orangtua = document.getElementById('nama_orangtua').value;
+        const alamat = document.getElementById('alamat').value;
+        const email = document.getElementById('email').value;
+        const nohp = document.getElementById('nohp').value;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const idToUpdate = urlParams.get('id');
+
+        const formData = {
+          nama_siswa: nama_siswa,
+          tanggal_lahir: tanggal_lahir,
+          noakte: noakte,
+          nama_orangtua: nama_orangtua,
+          alamat: alamat,
+          email: email,
+          nohp: nohp,
+        };
+        fetch(`http://localhost:8000/etalase/${idToUpdate}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Redirect to datapendaftar.html after successful submission
+            window.location.href = 'datapendaftar.html';
+          })
+          .catch((error) => {
+            console.error('Terjadi kesalahan:', error);
+          });
+      });
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const idToUpdate = urlParams.get('id');
+
+      fetch(`http://localhost:8000/etalase/${idToUpdate}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Populate the form fields with the existing data
+          document.getElementById('nama_siswa').value = data.nama_siswa;
+          document.getElementById('tanggal_lahir').value = data.tanggal_lahir;
+          document.getElementById('noakte').value = data.noakte;
+          document.getElementById('nama_orangtua').value = data.nama_orangtua;
+          document.getElementById('alamat').value = data.alamat;
+          document.getElementById('email').value = data.email;
+          document.getElementById('nohp').value = data.nohp;
+        })
+        .catch((error) => {
+          console.error('Error fetching data for update:', error);
+        });
+    </script>
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
