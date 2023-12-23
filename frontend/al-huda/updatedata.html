@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Update Siswa</title>
+    <title>Update Data Pendaftar</title>
 
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon" />
@@ -145,7 +145,7 @@
       const urlParams = new URLSearchParams(window.location.search);
       const idToUpdate = urlParams.get('id');
 
-      fetch(`http://localhost:8000/etalase/${idToUpdate}`)
+      fetch(`https://uas-paw-xi.vercel.app/${idToUpdate}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
